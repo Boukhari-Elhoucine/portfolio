@@ -1,36 +1,43 @@
 import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
-
-/*
- * This component is built using `gatsby-image` to automatically serve optimized
- * images with lazy loading and reduced file sizes. The image is loaded using a
- * `useStaticQuery`, which allows us to load the image from directly within this
- * component, rather than having to pass the image data down from pages.
- *
- * For more information, see the docs:
- * - `gatsby-image`: https://gatsby.dev/gatsby-image
- * - `useStaticQuery`: https://www.gatsbyjs.com/docs/use-static-query/
- */
-
+import { graphql, useStaticQuery } from "gatsby"
+import { ImageP, Container, Item, Button } from "./styles/ProjectStyles"
 const Image = () => {
   const data = useStaticQuery(graphql`
     query {
-      placeholderImage: file(relativePath: { eq: "gatsby-astronaut.png" }) {
-        childImageSharp {
-          fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
+      allMarkdownRemark {
+        edges {
+          node {
+            fields {
+              slug
+            }
+            frontmatter {
+              thumbnail {
+                childImageSharp {
+                  fluid {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
   `)
-
-  if (!data?.placeholderImage?.childImageSharp?.fluid) {
-    return <div>Picture not found</div>
-  }
-
-  return <Img fluid={data.placeholderImage.childImageSharp.fluid} />
+  return (
+    <Container>
+      {data.allMarkdownRemark.edges.map((item, key) => (
+        <Item key={key}>
+          <ImageP
+            fluid={item.node.frontmatter.thumbnail.childImageSharp.fluid}
+          />
+          <Button to={`/projects/${item.node.fields.slug}`}>
+            View <br /> Project
+          </Button>
+        </Item>
+      ))}
+    </Container>
+  )
 }
 
 export default Image

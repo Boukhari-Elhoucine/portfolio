@@ -1,42 +1,57 @@
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
 import React from "react"
-
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
+import { BiHome } from "react-icons/bi"
+import { IoPersonOutline, IoEyeOutline } from "react-icons/io5"
+import { FiSettings } from "react-icons/fi"
+import { AiOutlineMail } from "react-icons/ai"
+import { FaFacebookF, FaGithub, FaLinkedin } from "react-icons/fa"
+import {
+  Container,
+  Logo,
+  Nav,
+  NavLink,
+  Social,
+  SocialLink,
+} from "../components/styles/HeaderStyles"
+const Header = () => {
+  return (
+    <Container>
+      <Logo to="/">H</Logo>
+      <Nav>
+        <NavLink to="/">
+          <BiHome />
+        </NavLink>
+        <NavLink to="/about">
+          <IoPersonOutline />
+        </NavLink>
+        <NavLink to="/skills">
+          <FiSettings />
+        </NavLink>
+        <NavLink to="/projects">
+          <IoEyeOutline />
+        </NavLink>
+        <NavLink to="/contact">
+          <AiOutlineMail />
+        </NavLink>
+      </Nav>
+      <Social>
+        <SocialLink href="#">
+          <FaFacebookF />
+        </SocialLink>
+        <SocialLink
+          href="https://github.com/Boukhari-Elhoucine"
+          target="_blank"
         >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
-)
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
+          <FaGithub />
+        </SocialLink>
+        <SocialLink
+          href="https://www.linkedin.com/in/elhoucine-boukhari-258ba31b5/"
+          target="_blank"
+        >
+          <FaLinkedin />
+        </SocialLink>
+      </Social>
+    </Container>
+  )
 }
 
 export default Header
