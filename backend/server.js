@@ -1,4 +1,3 @@
-require("dotenv").config()
 const express = require("express")
 const nodemailer = require("nodemailer")
 const cors = require("cors")
@@ -33,7 +32,6 @@ app.post("/", (req, res) => {
   }
   mailer.sendMail(options, (error, info) => {
     if (error) {
-      console.log(error)
       res.status(401).json({ msg: "failed" })
     } else {
       console.log(info.response)
